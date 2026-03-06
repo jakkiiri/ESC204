@@ -1,0 +1,59 @@
+# =========================
+# Python cache & compiled files
+# =========================
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# =========================
+# macOS system files
+# =========================
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Thumbnails
+._*
+
+# Files that might appear in the root
+.Spotlight-V100
+.Trashes
+
+# =========================
+# Virtual environments
+# =========================
+.env/
+.venv/
+
+# =========================
+# VS Code
+# =========================
+.vscode/
+
+# =========================
+# PyCharm
+# =========================
+.idea/
+
+# =========================
+# Build / distribution
+# =========================
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# =========================
+# Logs
+# =========================
+*.log
+
+# =========================
+# Testing
+# =========================
+.coverage
+htmlcov/
+.pytest_cache/

@@ -1,2 +1,2 @@
 # ESC204
-Repository to store CircuitPy files for Praxis III
+Codebase for ESC204 Praxis III
