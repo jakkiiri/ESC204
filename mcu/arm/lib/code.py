@@ -7,7 +7,7 @@ import json
 import adafruit_requests as requests
 
 
-SSID, PASSWORD = os.getenv("WIFI_SSID"), os.getenv("WIFI_PASSWORD")
+SSID, PASSWORD = os.getenv("WIFI_SSID", "WIFI_PASSWORD")
 BASE_URL = "http://127.0.0.1:5000"
 
 
