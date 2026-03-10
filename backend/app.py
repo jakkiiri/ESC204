@@ -8,8 +8,8 @@ def home() -> str:
     return "Server is running"
 
 
-@app.route("/compute", methods=["POST"])
-def compute_from_data() -> Response:
+@app.route("/receive", methods=["POST"])
+def receive() -> Response:
     data = request.json
 
     # perform computations with data
