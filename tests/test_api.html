@@ -13,12 +13,13 @@
 
 <script>
 async function post_data_to_mcu() {
-  const baseUrl = "http://192.168.1.118:8000";
+  const baseUrl = "http://100.67.195.1:8000";
   try {
     let res = await fetch(`${baseUrl}/receive`, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "API-Key": "adKOSf6382435738slFKkgjvfd98f9dad98"
       },
       body: JSON.stringify({
         to: "mcu_arm",
@@ -39,7 +40,7 @@ async function post_data_to_mcu() {
 }
 
 async function post_data_to_server() {
-  const baseUrl = "http://192.168.1.118:8000";
+  const baseUrl = "http://100.67.195.1:8000";
   try {
     let res = await fetch(`${baseUrl}/receive`, {
       method: "POST",
@@ -65,7 +66,7 @@ async function post_data_to_server() {
 }
 
 async function fetch_from_mcu() {
-  const baseUrl = "http://192.168.1.118:8000";
+  const baseUrl = "http://100.67.195.1:8000";
   try {
     let res = await fetch(`${baseUrl}/get_mcu_data`, {
       method: "POST",
@@ -85,7 +86,7 @@ async function fetch_from_mcu() {
 }
 
 async function fetch_from_server() {
-  const baseUrl = "http://192.168.1.118:8000";
+  const baseUrl = "http://100.67.195.1:8000";
   try {
     let res = await fetch(`${baseUrl}/get_server_data`, {
       method: "GET",

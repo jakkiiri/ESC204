@@ -61,3 +61,5 @@ htmlcov/
 run.sh
 
 settings.toml
+
+.env

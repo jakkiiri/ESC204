@@ -1,16 +1,25 @@
+import os
 import json
 from backend.constants import (
     MCU_SENSOR_BOX,
     MCU_ARM,
+    API_KEY_ID,
     MAX_ARRAY_LENGTH,
     SERVER,
     MALFORMED_REQUEST_BODY_DEFAULT_REPONSE,
+    UNAUTHORIZED_DEFAULT_RESPONSE,
 )
+from dotenv import load_dotenv
 from flask_cors import CORS
 from flask import Flask, request, Response
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, allow_headers="*")
+
+load_dotenv()
+
+
+API_KEY = os.getenv("API_KEY")
 
 
 class CommsData:
@@ -62,6 +71,14 @@ def home() -> str:
 
 @app.route("/receive", methods=["POST"])
 def receive() -> Response:
+    key = request.headers.get(API_KEY_ID)
+    if key != API_KEY:
+        return Response(
+            json.dumps(UNAUTHORIZED_DEFAULT_RESPONSE),
+            status=401,
+            mimetype="application/json",
+        )
+
     data: dict = request.get_json(silent=True) or {}
 
     if not data.get("to") or not data.get("data"):
@@ -88,6 +105,14 @@ def receive() -> Response:
 
 @app.route("/get_mcu_data", methods=["POST"])
 def get_mcu_data() -> Response:
+    key = request.headers.get(API_KEY_ID)
+    if key != API_KEY:
+        return Response(
+            json.dumps(UNAUTHORIZED_DEFAULT_RESPONSE),
+            status=401,
+            mimetype="application/json",
+        )
+
     data: dict = request.get_json(silent=True) or {}
 
     if not data.get("target"):
@@ -116,6 +141,14 @@ def get_mcu_data() -> Response:
 
 @app.route("/get_server_data", methods=["GET"])
 def get_server_data() -> Response:
+    key = request.headers.get(API_KEY_ID)
+    if key != API_KEY:
+        return Response(
+            json.dumps(UNAUTHORIZED_DEFAULT_RESPONSE),
+            status=401,
+            mimetype="application/json",
+        )
+
     status_code, message, return_data = comms_data.consume_data(SERVER)
 
     return Response(
