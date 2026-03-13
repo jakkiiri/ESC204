@@ -73,9 +73,6 @@ def receive() -> Response:
 
     status_code, message = comms_data.append_data(data.get("data", {}), data["to"])
 
-    print(comms_data.inter_mcu)
-    print(comms_data.mcu_server)
-
     return Response(
         json.dumps(
             {
@@ -103,8 +100,6 @@ def get_mcu_data() -> Response:
     target: str = data["target"]
     status_code, message, return_data = comms_data.consume_data(target)
 
-    print(comms_data.inter_mcu)
-
     return Response(
         json.dumps(
             {
@@ -122,8 +117,6 @@ def get_mcu_data() -> Response:
 @app.route("/get_server_data", methods=["GET"])
 def get_server_data() -> Response:
     status_code, message, return_data = comms_data.consume_data(SERVER)
-
-    print(comms_data.mcu_server)
 
     return Response(
         json.dumps(
