@@ -75,11 +75,10 @@ def post_server(http, sensor_readings) -> None:
         response_dictionary = response.json()
         count += 1
 
+    print(response_dictionary["status_code"])
+
     if response_dictionary["status_code"] != 200:
-        print(response_dictionary["status_code"])
         print(response_dictionary["message"])
-    else:
-        print(response_dictionary["status_code"])
 
     response.close()
 
@@ -109,11 +108,10 @@ def post_mcu_arm(http, sensor_readings) -> None:
         response_dictionary = response.json()
         count += 1
 
+    print(response_dictionary["status_code"])
+
     if response_dictionary["status_code"] != 200:
-        print(response_dictionary["status_code"])
         print(response_dictionary["message"])
-    else:
-        print(response_dictionary["status_code"])
 
     response.close()
 
@@ -135,12 +133,12 @@ def get_server(http) -> None:
         )
         response_dictionary = response.json()
         count += 1
+    
+    print(response_dictionary["status_code"])
 
     if response_dictionary["status_code"] != 200:
-        print(response_dictionary["status_code"])
         print(response_dictionary["message"])
     else:
-        print(response_dictionary["status_code"])
         print(response_dictionary["data"])
 
     response.close()
@@ -169,11 +167,11 @@ def get_mcu_arm(http) -> None:
         response_dictionary = response.json()
         count += 1
 
+    print(response_dictionary["status_code"])
+
     if response_dictionary["status_code"] != 200:
-        print(response_dictionary["status_code"])
         print(response_dictionary["message"])
     else:
-        print(response_dictionary["status_code"])
         print(response_dictionary["data"])
 
     response.close()
