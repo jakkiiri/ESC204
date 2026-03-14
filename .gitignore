@@ -59,6 +59,7 @@ htmlcov/
 .pytest_cache/
 
 run.sh
+run.bat
 
 settings.toml
 
