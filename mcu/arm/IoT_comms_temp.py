@@ -6,7 +6,6 @@ import socketpool
 import ssl
 import adafruit_requests as requests
 import time
-import asyncio
 
 TIMEOUT = 30
 API_KEY = os.getenv("API_KEY")
@@ -16,7 +15,7 @@ SSID, PASSWORD = os.getenv("WIFI_SSID"), os.getenv("WIFI_PASSWORD")
 BASE_URL = "https://active-fire-monitoring-esc204.onrender.com"
 
 
-async def main() -> None:
+def main() -> None:
     wifi.radio.connect(SSID, PASSWORD)
     print("Connected:", wifi.radio.ipv4_address)
 
@@ -45,14 +44,6 @@ async def main() -> None:
             post_mcu_arm(http, sensor_readings)
             get_server(http)
             get_mcu_arm(http)
-
-            # await things that you want to finish executing
-            # before moving onto the next line
-            # e.g. let's say I have a function loop_forever()
-            # then you can wait for it to finish by doing
-            # var = await loop_forever()
-            # with circuitpy you might need to do some additional sus things
-            # on top of this. For that consult chat! 
 
 
 def post_server(http, sensor_readings) -> None:
