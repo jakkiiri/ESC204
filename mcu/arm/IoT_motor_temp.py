@@ -22,6 +22,7 @@ class ServoMotor:
         clip: bool = False,
         continuous: bool = True,
         max_throttle: float = 0.1,
+        calibrated_stop_throttle: float = 0.0
     ) -> None:
         self.continuous: bool = continuous
 
@@ -39,6 +40,8 @@ class ServoMotor:
 
         self.rotation_index: int = 0
         self.direction = ServoMotor.ROTATE_STOP
+
+        self.calibrated_stop_throttle = calibrated_stop_throttle
 
     def set_angle(self, angle: int):
         self.angle = max(0, min(180, angle)) if self.clip else angle
@@ -70,7 +73,7 @@ class ServoMotor:
 
     def stop_servo(self):
         if self.continuous:
-            self.set_throttle(0)
+            self.set_throttle(self.calibrated_stop_throttle)
         else:
             self.set_angle(self.angle)
 
@@ -94,14 +97,7 @@ def init() -> None:
     rotator = ServoMotor(board.GP28, duty_cycle=2**15, frequency=50)
 
     global actuator
-    actuator = ServoMotor(
-        board.GP11,
-        duty_cycle=2**15,
-        frequency=50,
-        angle_change=5,
-        clip=False,
-        continuous=False,
-    )
+    actuator = ServoMotor(board.GP11, duty_cycle=2**15, frequency=50, max_throttle=0.9, calibrated_stop_throttle=0.09)
 
 
 def await_button_release(button: digitalInOut) -> None:
