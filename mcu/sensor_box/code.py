@@ -1,6 +1,5 @@
 # MCU for sensor box
 
-# Notes for myself
 # MCU is client-side, sends HTTPS request to server over local network
 # MCU POST to server and get data/instructions from server and other pico
 
@@ -11,12 +10,43 @@ import ssl
 import adafruit_requests as requests
 import time
 
+import board
+import analogio
+import digitalio
+import adafruit_am2320
+import adafruit_bme680
+import busio
+import math
+
 TIMEOUT = 30
 API_KEY = os.getenv("API_KEY")
 headers = {"API-Key": API_KEY}
 
 SSID, PASSWORD = os.getenv("WIFI_SSID"), os.getenv("WIFI_PASSWORD")
 BASE_URL = "https://active-fire-monitoring-esc204.onrender.com"
+
+
+# Set a control GPIO pin for power to thermistor
+control_pin = digitalio.DigitalInOut(board.GP16)
+control_pin.direction = digitalio.Direction.OUTPUT # sends 3.3V to power circuit if True
+control_pin.value = False  # start with the power off to avoid self-heating of thermistor
+
+# Set up analog input using pin connected to thermistor
+thermistor = analogio.AnalogIn(board.A1)
+
+# Set up analog input using pin connected to gas sensor
+gas_sensor = analogio.AnalogIn(board.A0)
+
+# I2C for BME680 sensor
+i2c_bme = busio.I2C(scl=board.GP19, sda=board.GP18)
+bme680_sensor = adafruit_bme680.Adafruit_BME680_I2C(i2c_bme, address=0x76)
+# I2C for AM2320 sensor
+i2c_am = busio.I2C(scl=board.GP1, sda=board.GP0)
+am2320_sensor = adafruit_am2320.AM2320(i2c_am)
+
+# Set up digital input for PIR sensor
+pir = digitalio.DigitalInOut(board.GP15)
+pir.direction = digitalio.Direction.INPUT
 
 
 def main() -> None:
@@ -40,14 +70,35 @@ def main() -> None:
         if current_time > last_time + 10:
             last_time = time.time()
             sensor_readings = {
-                "temperature": 0,
-                "humidity": 0,
-                "battery": 0,
+                "temperature": thermistor_temp_C(),
+                "humidity": am2320_sensor.relative_humidity,
+                "pir": pir.value,
+                "gas": gas_sensor.value,
             }
             post_server(http, sensor_readings)
             post_mcu_arm(http, sensor_readings)
             get_server(http)
             get_mcu_arm(http)
+
+
+"""
+Calculates the temperature in Celsius from the raw thermistor data
+using the B coefficient Steinhart-Hart equation
+"""
+
+def thermistor_temp_C(R0=10000.0, T0=25.0, B=3950.0) -> float:
+    control_pin.value = True  # turn power on to read temperature
+
+    thermistor_resistance = 10000 / (
+        65535 / thermistor.value - 1
+    )  # thermistor resistance in ohms
+    steinhart = math.log(thermistor_resistance / R0) / B + 1.0 / (
+        T0 + 273.15
+    )  # find 1/T
+    temp = (1.0 / steinhart) - 273.15  # find T in celcius
+
+    control_pin.value = False  # turn power off to save battery and prevent self heating
+    return temp
 
 
 def post_server(http, sensor_readings) -> None:
@@ -57,9 +108,7 @@ def post_server(http, sensor_readings) -> None:
     }
 
     # calls server up to 5 times, and if don't break early then checks on the 5th time
-    response_dictionary = {}
-    count = 0
-    while response_dictionary.get("status_code") != 200 and count < 5:
+    for i in range(5):
         response = http.post(
             f"{BASE_URL}/receive",
             json=data,
@@ -67,7 +116,9 @@ def post_server(http, sensor_readings) -> None:
             timeout=TIMEOUT,
         )
         response_dictionary = response.json()
-        count += 1
+
+        if response_dictionary.get("status_code") == 200:
+            break
 
     print(response_dictionary.get("status_code"))
 
@@ -83,9 +134,7 @@ def post_mcu_arm(http, sensor_readings) -> None:
         "data": sensor_readings,
     }
 
-    response_dictionary = {}
-    count = 0
-    while response_dictionary.get("status_code") != 200 and count < 5:
+    for i in range(5):
         response = http.post(
             f"{BASE_URL}/receive",
             json=data,
@@ -93,7 +142,9 @@ def post_mcu_arm(http, sensor_readings) -> None:
             timeout=TIMEOUT,
         )
         response_dictionary = response.json()
-        count += 1
+
+        if response_dictionary.get("status_code") == 200:
+            break
 
     print(response_dictionary.get("status_code"))
 
@@ -104,17 +155,17 @@ def post_mcu_arm(http, sensor_readings) -> None:
 
 
 def get_server(http) -> None:
-    response_dictionary = {}
-    count = 0
-    while response_dictionary.get("status_code") != 200 and count < 5:
+    for i in range(5):
         response = http.get(
             f"{BASE_URL}/get_server_data",
             headers=headers,
             timeout=TIMEOUT,
         )
         response_dictionary = response.json()
-        count += 1
-    
+
+        if response_dictionary.get("status_code") == 200:
+            break
+
     print(response_dictionary.get("status_code"))
 
     if response_dictionary.get("status_code") != 200:
@@ -130,9 +181,7 @@ def get_mcu_arm(http) -> None:
         "target": "mcu_arm",
     }
 
-    response_dictionary = {}
-    count = 0
-    while response_dictionary.get("status_code") != 200 and count < 5:
+    for i in range(5):
         response = http.post(
             f"{BASE_URL}/get_mcu_data",
             json=target_dictionary,
@@ -140,7 +189,9 @@ def get_mcu_arm(http) -> None:
             timeout=TIMEOUT,
         )
         response_dictionary = response.json()
-        count += 1
+
+        if response_dictionary.get("status_code") == 200:
+            break
 
     print(response_dictionary.get("status_code"))
 

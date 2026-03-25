@@ -53,9 +53,7 @@ def post_server(http, sensor_readings) -> None:
     }
 
     # calls server up to 5 times, and if don't break early then checks on the 5th time
-    response_dictionary = {}
-    count = 0
-    while response_dictionary.get("status_code") != 200 and count < 5:
+    for i in range(5):
         response = http.post(
             f"{BASE_URL}/receive",
             json=data,
@@ -63,7 +61,9 @@ def post_server(http, sensor_readings) -> None:
             timeout=TIMEOUT,
         )
         response_dictionary = response.json()
-        count += 1
+
+        if response_dictionary.get("status_code") == 200:
+            break
 
     print(response_dictionary.get("status_code"))
 
@@ -79,9 +79,7 @@ def post_mcu_arm(http, sensor_readings) -> None:
         "data": sensor_readings,
     }
 
-    response_dictionary = {}
-    count = 0
-    while response_dictionary.get("status_code") != 200 and count < 5:
+    for i in range(5):
         response = http.post(
             f"{BASE_URL}/receive",
             json=data,
@@ -89,7 +87,9 @@ def post_mcu_arm(http, sensor_readings) -> None:
             timeout=TIMEOUT,
         )
         response_dictionary = response.json()
-        count += 1
+
+        if response_dictionary.get("status_code") == 200:
+            break
 
     print(response_dictionary.get("status_code"))
 
@@ -100,17 +100,17 @@ def post_mcu_arm(http, sensor_readings) -> None:
 
 
 def get_server(http) -> None:
-    response_dictionary = {}
-    count = 0
-    while response_dictionary.get("status_code") != 200 and count < 5:
+    for i in range(5):
         response = http.get(
             f"{BASE_URL}/get_server_data",
             headers=headers,
             timeout=TIMEOUT,
         )
         response_dictionary = response.json()
-        count += 1
-    
+
+        if response_dictionary.get("status_code") == 200:
+            break
+
     print(response_dictionary.get("status_code"))
 
     if response_dictionary.get("status_code") != 200:
@@ -126,9 +126,7 @@ def get_mcu_arm(http) -> None:
         "target": "mcu_sensor_box",
     }
 
-    response_dictionary = {}
-    count = 0
-    while response_dictionary.get("status_code") != 200 and count < 5:
+    for i in range(5):
         response = http.post(
             f"{BASE_URL}/get_mcu_data",
             json=target_dictionary,
@@ -136,7 +134,9 @@ def get_mcu_arm(http) -> None:
             timeout=TIMEOUT,
         )
         response_dictionary = response.json()
-        count += 1
+
+        if response_dictionary.get("status_code") == 200:
+            break
 
     print(response_dictionary.get("status_code"))
 
