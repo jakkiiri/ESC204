@@ -134,6 +134,8 @@ def main() -> None:
             actuator.rotate_servo()
         else:
             actuator.stop_servo()
+        
+        # trigger deploy please!!!!
 
 
 if __name__ == "__main__":
