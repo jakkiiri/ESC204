@@ -2,6 +2,8 @@ MCU_SENSOR_BOX = "mcu_sensor_box"
 MCU_ARM = "mcu_arm"
 SERVER = "server"
 
+DATABASE_PATH = "database/history.db"
+
 API_KEY_ID = "API-Key"
 
 MAX_ARRAY_LENGTH = 100000000
