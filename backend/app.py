@@ -10,6 +10,7 @@ from backend.constants import (
     UNAUTHORIZED_DEFAULT_RESPONSE,
 )
 from dotenv import load_dotenv
+from database.database import log_message, init_db
 from flask_cors import CORS
 from flask import Flask, request, Response
 
@@ -17,7 +18,7 @@ app = Flask(__name__)
 CORS(app, allow_headers="*")
 
 load_dotenv()
-
+init_db()
 
 API_KEY = os.getenv("API_KEY")
 
@@ -80,15 +81,18 @@ def receive() -> Response:
         )
 
     data: dict = request.get_json(silent=True) or {}
+    to, data = data.get("to"), data.get("data")
 
-    if not data.get("to") or not data.get("data"):
+    if not to or not data:
         return Response(
             json.dumps(MALFORMED_REQUEST_BODY_DEFAULT_REPONSE),
             status=400,
             mimetype="application/json",
         )
 
-    status_code, message = comms_data.append_data(data.get("data", {}), data["to"])
+    print(to)
+    status_code, message = comms_data.append_data(data or {}, to)
+    log_message(to, data)
 
     return Response(
         json.dumps(
