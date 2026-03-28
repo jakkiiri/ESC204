@@ -23,7 +23,7 @@ API_KEY = os.getenv("API_KEY")
 headers = {"API-Key": API_KEY}
 
 SSID, PASSWORD = os.getenv("WIFI_SSID"), os.getenv("WIFI_PASSWORD")
-BASE_URL = "https://active-fire-monitoring-esc204.onrender.com"
+BASE_URL = "http://172.20.10.9:8000/"
 
 
 # Set a control GPIO pin for power to thermistor
@@ -108,7 +108,7 @@ def post_server(http, sensor_readings) -> None:
     }
 
     # calls server up to 5 times, and if don't break early then checks on the 5th time
-    for i in range(5):
+    for _ in range(5):
         response = http.post(
             f"{BASE_URL}/receive",
             json=data,
@@ -134,7 +134,7 @@ def post_mcu_arm(http, sensor_readings) -> None:
         "data": sensor_readings,
     }
 
-    for i in range(5):
+    for _ in range(5):
         response = http.post(
             f"{BASE_URL}/receive",
             json=data,
@@ -155,7 +155,7 @@ def post_mcu_arm(http, sensor_readings) -> None:
 
 
 def get_server(http) -> None:
-    for i in range(5):
+    for _ in range(5):
         response = http.get(
             f"{BASE_URL}/get_server_data",
             headers=headers,
@@ -181,7 +181,7 @@ def get_mcu_arm(http) -> None:
         "target": "mcu_arm",
     }
 
-    for i in range(5):
+    for _ in range(5):
         response = http.post(
             f"{BASE_URL}/get_mcu_data",
             json=target_dictionary,

@@ -21,7 +21,7 @@ API_KEY = os.getenv("API_KEY")
 headers = {"API-Key": API_KEY}
 
 SSID, PASSWORD = os.getenv("WIFI_SSID"), os.getenv("WIFI_PASSWORD")
-BASE_URL = "https://active-fire-monitoring-esc204.onrender.com"
+BASE_URL = "http://172.20.10.9:8000/"
 
 
 class ServoMotor:
@@ -39,7 +39,7 @@ class ServoMotor:
         clip: bool = False,
         continuous: bool = True,
         max_throttle: float = 0.1,
-        calibrated_stop_throttle: float = 0.0
+        calibrated_stop_throttle: float = 0.0,
     ) -> None:
         self.continuous: bool = continuous
 
@@ -114,7 +114,13 @@ def init() -> None:
     rotator = ServoMotor(board.GP28, duty_cycle=2**15, frequency=50)
 
     global actuator
-    actuator = ServoMotor(board.GP11, duty_cycle=2**15, frequency=50, max_throttle=0.9, calibrated_stop_throttle=0.09)
+    actuator = ServoMotor(
+        board.GP11,
+        duty_cycle=2**15,
+        frequency=50,
+        max_throttle=0.9,
+        calibrated_stop_throttle=0.09,
+    )
 
 
 def await_button_release(button: digitalInOut) -> None:
@@ -225,7 +231,6 @@ def get_mcu_sensor_box(http) -> None:
     response.close()
 
 
-
 def main() -> None:
     global rotator_button, actuator_button
     global rotator, actuator
@@ -244,9 +249,10 @@ def main() -> None:
     http = requests.Session(pool, ssl_context)
 
     last_time = time.time()
-    https_ready = False
 
     while True:
+        current_time = time.time()
+
         if not rotator_button.value:
             await_button_release(rotator_button)
             rotator.rotation_index = (rotator.rotation_index + 1) % len(
@@ -261,40 +267,30 @@ def main() -> None:
             )
             actuator.direction = ServoMotor.ROTATION_DIRECTIONS[actuator.rotation_index]
 
-        https_ready = True
-
         if rotator.direction != ServoMotor.ROTATE_STOP:
             rotator.rotate_servo()
         else:
             rotator.stop_servo()
-            current_time = time.time()
-            if current_time > last_time + 10:
-                sensor_readings = {
-                    "location": 0,
-                }
-                # post_server(http, sensor_readings)
-                post_mcu_sensor_box(http, sensor_readings)
-                get_server(http)
-                get_mcu_sensor_box(http)
-            last_time = time.time()
-            https_ready = False
-        
 
         if actuator.direction != ServoMotor.ROTATE_STOP:
             actuator.rotate_servo()
         else:
             actuator.stop_servo()
-            current_time = time.time()
-            if current_time > last_time + 10 and https_ready:
-                sensor_readings = {
-                    "location": 0,
-                }
-                # post_server(http, sensor_readings)
-                post_mcu_sensor_box(http, sensor_readings)
-                get_server(http)
-                get_mcu_sensor_box(http)
-                last_time = time.time()
-            
+
+        if (
+            rotator.direction == ServoMotor.ROTATE_STOP
+            and actuator.direction == ServoMotor.ROTATE_STOP
+        ) and (current_time > last_time + 10):
+            sensor_readings = {
+                "location": 0,
+            }
+            # post_server(http, sensor_readings)
+            post_mcu_sensor_box(http, sensor_readings)
+            get_server(http)
+            get_mcu_sensor_box(http)
+            last_time = time.time()
+
 
 if __name__ == "__main__":
+    init()
     main()
