@@ -90,7 +90,6 @@ def receive() -> Response:
             mimetype="application/json",
         )
 
-    print(to)
     status_code, message = comms_data.append_data(data or {}, to)
     log_message(to, data)
 
