@@ -1,6 +1,6 @@
 import os
 import json
-from backend.constants import (
+from DCSS.constants import (
     MCU_SENSOR_BOX,
     MCU_ARM,
     API_KEY_ID,

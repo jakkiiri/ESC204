@@ -1,6 +1,6 @@
 import json
 import sqlite3
-from backend.constants import DATABASE_PATH
+from DCSS.constants import DATABASE_PATH
 
 """CREATE TABLE messages (
                    id INTEGER PRIMARY KEY AUTOINCREMENT,
