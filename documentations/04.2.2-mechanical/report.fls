@@ -1,0 +1,111 @@
+PWD c:\Users\Jakkii\OneDrive - University of Toronto\Documents\GitHub\ESC204\documentations\04.2.2-mechanical
+INPUT C:\Users\Jakkii\AppData\Local\MiKTeX\miktex\data\le\pdftex\pdflatex.fmt
+INPUT c:\Users\Jakkii\OneDrive - University of Toronto\Documents\GitHub\ESC204\documentations\04.2.2-mechanical\report.tex
+OUTPUT report.log
+INPUT C:\Users\Jakkii\AppData\Local\Programs\MiKTeX\tex\latex\base\article.cls
+INPUT C:\Users\Jakkii\AppData\Local\Programs\MiKTeX\tex\latex\base\article.cls
+INPUT C:\Users\Jakkii\AppData\Local\Programs\MiKTeX\tex\latex\base\size12.clo
+INPUT C:\Users\Jakkii\AppData\Local\Programs\MiKTeX\tex\latex\base\size12.clo
+INPUT C:\Users\Jakkii\AppData\Local\Programs\MiKTeX\tex\latex\base\size12.clo
+INPUT C:\Users\Jakkii\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmr12.tfm
+INPUT C:\Users\Jakkii\AppData\Local\Programs\MiKTeX\tex\latex\geometry\geometry.sty
+INPUT C:\Users\Jakkii\AppData\Local\Programs\MiKTeX\tex\latex\geometry\geometry.sty
+INPUT C:\Users\Jakkii\AppData\Local\Programs\MiKTeX\tex\latex\graphics\keyval.sty
+INPUT C:\Users\Jakkii\AppData\Local\Programs\MiKTeX\tex\latex\graphics\keyval.sty
+INPUT C:\Users\Jakkii\AppData\Local\Programs\MiKTeX\tex\generic\iftex\ifvtex.sty
+INPUT C:\Users\Jakkii\AppData\Local\Programs\MiKTeX\tex\generic\iftex\ifvtex.sty
+INPUT C:\Users\Jakkii\AppData\Local\Programs\MiKTeX\tex\generic\iftex\iftex.sty
+INPUT C:\Users\Jakkii\AppData\Local\Programs\MiKTeX\tex\generic\iftex\iftex.sty
+INPUT C:\Users\Jakkii\AppData\Local\Programs\MiKTeX\tex\latex\geometry\geometry.cfg
+INPUT C:\Users\Jakkii\AppData\Local\Programs\MiKTeX\tex\latex\geometry\geometry.cfg
+INPUT C:\Users\Jakkii\AppData\Local\Programs\MiKTeX\tex\latex\geometry\geometry.cfg
+INPUT C:\Users\Jakkii\AppData\Local\Programs\MiKTeX\tex\latex\graphics\graphicx.sty
+INPUT C:\Users\Jakkii\AppData\Local\Programs\MiKTeX\tex\latex\graphics\graphicx.sty
+INPUT C:\Users\Jakkii\AppData\Local\Programs\MiKTeX\tex\latex\graphics\graphics.sty
+INPUT C:\Users\Jakkii\AppData\Local\Programs\MiKTeX\tex\latex\graphics\graphics.sty
+INPUT C:\Users\Jakkii\AppData\Local\Programs\MiKTeX\tex\latex\graphics\trig.sty
+INPUT C:\Users\Jakkii\AppData\Local\Programs\MiKTeX\tex\latex\graphics\trig.sty
+INPUT C:\Users\Jakkii\AppData\Local\Programs\MiKTeX\tex\latex\graphics-cfg\graphics.cfg
+INPUT C:\Users\Jakkii\AppData\Local\Programs\MiKTeX\tex\latex\graphics-cfg\graphics.cfg
+INPUT C:\Users\Jakkii\AppData\Local\Programs\MiKTeX\tex\latex\graphics-cfg\graphics.cfg
+INPUT C:\Users\Jakkii\AppData\Local\Programs\MiKTeX\tex\latex\graphics-def\pdftex.def
+INPUT C:\Users\Jakkii\AppData\Local\Programs\MiKTeX\tex\latex\graphics-def\pdftex.def
+INPUT C:\Users\Jakkii\AppData\Local\Programs\MiKTeX\tex\latex\graphics-def\pdftex.def
+INPUT C:\Users\Jakkii\AppData\Local\Programs\MiKTeX\tex\latex\caption\caption.sty
+INPUT C:\Users\Jakkii\AppData\Local\Programs\MiKTeX\tex\latex\caption\caption.sty
+INPUT C:\Users\Jakkii\AppData\Local\Programs\MiKTeX\tex\latex\caption\caption3.sty
+INPUT C:\Users\Jakkii\AppData\Local\Programs\MiKTeX\tex\latex\caption\caption3.sty
+INPUT C:\Users\Jakkii\AppData\Local\Programs\MiKTeX\tex\latex\float\float.sty
+INPUT C:\Users\Jakkii\AppData\Local\Programs\MiKTeX\tex\latex\float\float.sty
+INPUT C:\Users\Jakkii\AppData\Local\Programs\MiKTeX\tex\latex\l3backend\l3backend-pdftex.def
+INPUT C:\Users\Jakkii\AppData\Local\Programs\MiKTeX\tex\latex\l3backend\l3backend-pdftex.def
+INPUT .\report.aux
+INPUT .\report.aux
+INPUT report.aux
+OUTPUT report.aux
+INPUT C:\Users\Jakkii\AppData\Local\Programs\MiKTeX\tex\context\base\mkii\supp-pdf.mkii
+INPUT C:\Users\Jakkii\AppData\Local\Programs\MiKTeX\tex\context\base\mkii\supp-pdf.mkii
+INPUT C:\Users\Jakkii\AppData\Local\Programs\MiKTeX\tex\context\base\mkii\supp-pdf.mkii
+INPUT C:\Users\Jakkii\AppData\Local\Programs\MiKTeX\tex\latex\epstopdf-pkg\epstopdf-base.sty
+INPUT C:\Users\Jakkii\AppData\Local\Programs\MiKTeX\tex\latex\epstopdf-pkg\epstopdf-base.sty
+INPUT C:\Users\Jakkii\AppData\Local\Programs\MiKTeX\tex\latex\00miktex\epstopdf-sys.cfg
+INPUT C:\Users\Jakkii\AppData\Local\Programs\MiKTeX\tex\latex\00miktex\epstopdf-sys.cfg
+INPUT C:\Users\Jakkii\AppData\Local\Programs\MiKTeX\tex\latex\00miktex\epstopdf-sys.cfg
+INPUT C:\Users\Jakkii\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmr17.tfm
+INPUT C:\Users\Jakkii\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmr12.tfm
+INPUT C:\Users\Jakkii\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmmi12.tfm
+INPUT C:\Users\Jakkii\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmsy10.tfm
+INPUT C:\Users\Jakkii\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmr17.tfm
+INPUT C:\Users\Jakkii\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmbx12.tfm
+INPUT C:\Users\Jakkii\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmbx12.tfm
+INPUT .\images\Box V1.png
+INPUT .\images\Box V1.png
+INPUT .\images\Box V1.png
+INPUT .\images\Box V1.png
+OUTPUT report.pdf
+INPUT .\images\Box V1.png
+INPUT .\images\Box V1.png
+INPUT .\images\Box V1.png
+INPUT C:\Users\Jakkii\AppData\Local\MiKTeX\fonts\map\pdftex\pdftex.map
+INPUT .\images\Roof Does Not Fit.jpg
+INPUT .\images\Roof Does Not Fit.jpg
+INPUT .\images\Roof Does Not Fit.jpg
+INPUT .\images\Roof Does Not Fit.jpg
+INPUT .\images\Roof Does Not Fit.jpg
+INPUT .\images\Roof Does Not Fit.jpg
+INPUT .\images\Roof Does Not Fit.jpg
+INPUT .\images\Wire Holes for Jumpers.jpg
+INPUT .\images\Wire Holes for Jumpers.jpg
+INPUT .\images\Wire Holes for Jumpers.jpg
+INPUT .\images\Wire Holes for Jumpers.jpg
+INPUT .\images\Wire Holes for Jumpers.jpg
+INPUT .\images\Wire Holes for Jumpers.jpg
+INPUT .\images\Wire Holes for Jumpers.jpg
+INPUT .\images\Side Hole.jpg
+INPUT .\images\Side Hole.jpg
+INPUT .\images\Side Hole.jpg
+INPUT .\images\Side Hole.jpg
+INPUT .\images\Side Hole.jpg
+INPUT .\images\Side Hole.jpg
+INPUT .\images\Side Hole.jpg
+INPUT .\images\Roof Fits.jpg
+INPUT .\images\Roof Fits.jpg
+INPUT .\images\Roof Fits.jpg
+INPUT .\images\Roof Fits.jpg
+INPUT .\images\Roof Fits.jpg
+INPUT .\images\Roof Fits.jpg
+INPUT .\images\Roof Fits.jpg
+INPUT .\images\Final Box V2.png
+INPUT .\images\Final Box V2.png
+INPUT .\images\Final Box V2.png
+INPUT .\images\Final Box V2.png
+INPUT .\images\Final Box V2.png
+INPUT .\images\Final Box V2.png
+INPUT .\images\Final Box V2.png
+INPUT report.aux
+INPUT C:\Users\Jakkii\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmbx12.pfb
+INPUT C:\Users\Jakkii\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmbx12.pfb
+INPUT C:\Users\Jakkii\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmr12.pfb
+INPUT C:\Users\Jakkii\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmr12.pfb
+INPUT C:\Users\Jakkii\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmr17.pfb
+INPUT C:\Users\Jakkii\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmr17.pfb
