@@ -52,6 +52,16 @@ dist/
 *.log
 
 # =========================
+# Temporary Testing Individual Components Code
+# =========================
+mcu/SDS/IoT_comms_temp_arm.py
+mcu/SDS/mechanical_motor_deployment_temp.py
+
+mcu/DCC/electrical_sensor_readings_temp.py
+mcu/DCC/IoT_comms_temp_sensor_box.py
+
+
+# =========================
 # Testing
 # =========================
 .coverage
