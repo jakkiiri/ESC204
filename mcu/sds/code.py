@@ -25,45 +25,44 @@ SSID, PASSWORD = os.getenv("WIFI_SSID"), os.getenv("WIFI_PASSWORD")
 BASE_URL = "http://172.20.10.11:8000"
 
 
-"""Controls both standard and continuous rotation servos via PWM.
-
-Standard mode moves to a target angle in increments; continuous mode
-rotates at a set throttle with a calibrated stop value to account for
-motor drift.
-
-Functions:
-    `set_angle` sets the servo to a target angle
-    Args:
-        angle (int): Target angle in degrees
-    Returns:
-        None
-
-    `set_throttle` sets the throttle of a continuous servo
-    Args:
-        throttle (float): Throttle value to set
-    Returns:
-        None
-
-    `rotate_servo` rotates the servo in the current direction
-    Standard mode: increments/decrements angle by `angle_change`
-    Continuous mode: sets throttle to +/- `max_throttle`
-    Args:
-        None
-    Returns:
-        None
-
-    `stop_servo` stops the servo
-    Continuous mode: sets throttle to `calibrated_stop_throttle`
-    Standard mode: holds the current angle
-    Args:
-        None
-    Returns:
-        None
-
-"""
-
-
 class ServoMotor:
+    """Controls both standard and continuous rotation servos via PWM.
+
+    Standard mode moves to a target angle in increments; continuous mode
+    rotates at a set throttle with a calibrated stop value to account for
+    motor drift.
+
+    Functions:
+        `set_angle` sets the servo to a target angle
+        Args:
+            angle (int): Target angle in degrees
+        Returns:
+            None
+
+        `set_throttle` sets the throttle of a continuous servo
+        Args:
+            throttle (float): Throttle value to set
+        Returns:
+            None
+
+        `rotate_servo` rotates the servo in the current direction
+        Standard mode: increments/decrements angle by `angle_change`
+        Continuous mode: sets throttle to +/- `max_throttle`
+        Args:
+            None
+        Returns:
+            None
+
+        `stop_servo` stops the servo
+        Continuous mode: sets throttle to `calibrated_stop_throttle`
+        Standard mode: holds the current angle
+        Args:
+            None
+        Returns:
+            None
+
+    """
+
     ROTATE_CW: str = "CW"
     ROTATE_CCW: str = "CCW"
     ROTATE_STOP: str = "STOP"
@@ -134,17 +133,15 @@ class ServoMotor:
             self.set_angle(self.angle)
 
 
-"""Initializes and configures all actuators and input buttons for the SDS MCU.
-
-Sets up the following hardware:
-    - Rotator button (GP22): Digital input with pull-up resistor, controls the servo motor.
-    - Actuator button (GP19): Digital input with pull-up resistor, controls the linear actuator.
-    - Servo motor (GP28): Servo motor for aligning lock-and-key mechanism.
-    - Linear actuator (GP11): Motor for deploying the mechanical arm, with custom max throttle and calibrated stop throttle values.
-"""
-
-
 def init() -> None:
+    """Initializes and configures all actuators and input buttons for the SDS MCU.
+
+    Sets up the following hardware:
+        - Rotator button (GP22): Digital input with pull-up resistor, controls the servo motor.
+        - Actuator button (GP19): Digital input with pull-up resistor, controls the linear actuator.
+        - Servo motor (GP28): Servo motor for aligning lock-and-key mechanism.
+        - Linear actuator (GP11): Motor for deploying the mechanical arm, with custom max throttle and calibrated stop throttle values.
+    """
 
     # Buttons
     global rotator_button
@@ -171,17 +168,15 @@ def init() -> None:
     )
 
 
-"""Initiates a while loop that polls for the release of the button
-
-Args:
-    button (digitalInOut): 
-
-Returns:
-    None
-"""
-
-
 def await_button_release(button: digitalInOut) -> None:
+    """Initiates a while loop that polls for the release of the button
+
+    Args:
+        button (digitalInOut):
+
+    Returns:
+        None
+    """
     while True:
         if button.value:
             return
@@ -302,21 +297,19 @@ def get_mcu_sensor_box(http) -> None:
     response.close()
 
 
-"""
-Connects to WiFi, establishes an HTTP session, `/render.pem` stores the certification.
-Enters an infinite while loop that checks whether either of the buttons have been pressed,
-and if so, enters another infinite loop to check when they are released. Then, changes
-rotation direction by incrementing the list index of `ServoMotor.ROTATION_DIRECTIONS`.
-If the value is not `ServoMotor.ROTATE_STOP`, the motor is rotated.
-
-Each iteration checks that both conditions (10 second interval has passed since last http request,
-and both motors are in `ServoMotor.ROTATE_STOP` states) have been met and then runs the
-http request function, posting `payload` to both the server and the DCC MCU, and then retrieves any
-pending data from each.
-"""
-
-
 def main() -> None:
+    """
+    Connects to WiFi, establishes an HTTP session, `/render.pem` stores the certification.
+    Enters an infinite while loop that checks whether either of the buttons have been pressed,
+    and if so, enters another infinite loop to check when they are released. Then, changes
+    rotation direction by incrementing the list index of `ServoMotor.ROTATION_DIRECTIONS`.
+    If the value is not `ServoMotor.ROTATE_STOP`, the motor is rotated.
+
+    Each iteration checks that both conditions (10 second interval has passed since last http request,
+    and both motors are in `ServoMotor.ROTATE_STOP` states) have been met and then runs the
+    http request function, posting `payload` to both the server and the DCC MCU, and then retrieves any
+    pending data from each.
+    """
     global rotator_button, actuator_button
     global rotator, actuator
 

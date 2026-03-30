@@ -25,18 +25,17 @@ headers = {"API-Key": API_KEY}
 SSID, PASSWORD = os.getenv("WIFI_SSID"), os.getenv("WIFI_PASSWORD")
 BASE_URL = "http://172.20.10.11:8000/"
 
-"""
-Initializes and configures all sensors connected to the MCU.
-
-Sets up the following hardware:
-    - Thermistor (A1): Analog temperature sensor powered via GP16 to prevent self-heating when idle.
-    - Gas sensor (A0): Analog air quality sensor.
-    - BME680 (I2C: SCL=GP19, SDA=GP18): Temperature, humidity, pressure, and gas resistance sensor.
-    - AM2320 (I2C: SCL=GP1, SDA=GP0): Temperature and humidity sensor.
-"""
-
 
 def init() -> None:
+    """
+    Initializes and configures all sensors connected to the MCU.
+
+    Sets up the following hardware:
+        - Thermistor (A1): Analog temperature sensor powered via GP16 to prevent self-heating when idle.
+        - Gas sensor (A0): Analog air quality sensor.
+        - BME680 (I2C: SCL=GP19, SDA=GP18): Temperature, humidity, pressure, and gas resistance sensor.
+        - AM2320 (I2C: SCL=GP1, SDA=GP0): Temperature and humidity sensor.
+    """
     global control_pin, thermistor, gas_sensor, i2c_bme, bme680_sensor, i2c_am, am2320_sensor
     # global pir
 
@@ -68,16 +67,14 @@ def init() -> None:
     # pir.direction = digitalio.Direction.INPUT
 
 
-"""
-Connects to WiFi, establishes an HTTP session, `/render.pem` stores the certification
-Enters an infinite while loop that reads and transmits sensor data every
-10 seconds. Each iteration collects temperature, humidity, and gas readings
-and posts them to both the server and the SDS MCU, then retrieves any
-pending data from each.
-"""
-
-
 def main() -> None:
+    """
+    Connects to WiFi, establishes an HTTP session, `/render.pem` stores the certification
+    Enters an infinite while loop that reads and transmits sensor data every
+    10 seconds. Each iteration collects temperature, humidity, and gas readings
+    and posts them to both the server and the SDS MCU, then retrieves any
+    pending data from each.
+    """
     global control_pin, thermistor, gas_sensor, i2c_bme, bme680_sensor, i2c_am, am2320_sensor
     # global pir
 
@@ -117,13 +114,11 @@ def main() -> None:
             get_mcu_arm(http)
 
 
-"""
-Calculates the temperature in Celsius from the raw thermistor data
-using the B coefficient Steinhart-Hart equation
-"""
-
-
 def thermistor_temp_C(R0=10000.0, T0=25.0, B=3950.0):
+    """
+    Calculates the temperature in Celsius from the raw thermistor data
+    using the B coefficient Steinhart-Hart equation
+    """
 
     control_pin.value = True  # turn power on to read temperature
 
