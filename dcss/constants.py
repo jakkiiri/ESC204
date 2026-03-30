@@ -6,7 +6,7 @@ MCU_SENSOR_BOX = "mcu_sensor_box"
 MCU_ARM = "mcu_arm"
 SERVER = "server"
 
-DATABASE_PATH = "database/history.db"
+DATABASE_PATH = "dcss/history.db"
 
 API_KEY_ID = "API-Key"
 

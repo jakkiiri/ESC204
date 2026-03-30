@@ -27,32 +27,30 @@ init_db()
 API_KEY = os.getenv("API_KEY")
 
 
-"""The CommsData class manages message queues for communication between MCUs and the server.
-
-Creates separate queues for MCU-MCU messages (`self.inter_mcu`) and MCU-server messages (`self.mcu_server`).
-Each queue is capped at `MAX_ARRAY_LENGTH` to prevent unbounded memory growth,
-with oldest messages deleted first when the limit is reached.
-
-Functions:
-    `append_data` is called to enqueue data to the target queue
-    Args:
-        data (dict): Takes in the dictionary of data
-        target (str): Specifies the target queue
-    Returns:
-        tuple[int, str]: Returns (200, ""), OK status code shows that
-        data was successfully enqueued to the target queue
-
-    `consume_data` is called to dequeue the oldest dictionary element of the target queue
-    Args:
-        target (str): Specifies the target queue
-        
-    Returns:
-        tuple[int, str, dict]: Returns (200, "", data), OK status code shows that
-        data (dict) was successfully dequeued from the target queue
-"""
-
-
 class CommsData:
+    """The CommsData class manages message queues for communication between MCUs and the server.
+
+    Creates separate queues for MCU-MCU messages (`self.inter_mcu`) and MCU-server messages (`self.mcu_server`).
+    Each queue is capped at `MAX_ARRAY_LENGTH` to prevent unbounded memory growth,
+    with oldest messages deleted first when the limit is reached.
+
+    Functions:
+        `append_data` is called to enqueue data to the target queue
+        Args:
+            data (dict): Takes in the dictionary of data
+            target (str): Specifies the target queue
+        Returns:
+            tuple[int, str]: Returns (200, ""), OK status code shows that
+            data was successfully enqueued to the target queue
+
+        `consume_data` is called to dequeue the oldest dictionary element of the target queue
+        Args:
+            target (str): Specifies the target queue
+
+        Returns:
+            tuple[int, str, dict]: Returns (200, "", data), OK status code shows that
+            data (dict) was successfully dequeued from the target queue
+    """
 
     def __init__(self) -> None:
         self.mcu: set = {MCU_ARM, MCU_SENSOR_BOX}
@@ -106,7 +104,8 @@ def home() -> str:
 
 
 # POST request from MCUs: Endpoint is `/receive`
-# Prints the received data in server logs, stores it in SQLite database, enqueues the target queue, returns status code and message
+# Prints the received data in server logs, stores it in SQLite database,
+# enqueues the target queue, returns status code and message
 @app.route("/receive", methods=["POST"])
 def receive() -> Response:
     key: str = request.headers.get(API_KEY_ID)
